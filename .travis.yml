@@ -1,0 +1,33 @@
+sudo: required
+git:
+  submodules: false
+services:
+- docker
+before_install:
+- git clone https://github.com/silverx2222/DualBootPatcher -b master DualBootPatcher/
+- cd DualBootPatcher && git submodule init && git submodule update && cd ../
+- docker pull silverx2222/dualbootpatcher:9.3.0-14-base
+- docker pull silverx2222/dualbootpatcher:9.3.0-14-android
+#- docker pull silverx2222/dualbootpatcher:9.3.0-14-linux
+script:
+- mkdir $HOME/.android
+- mkdir -p ${TRAVIS_BUILD_DIR}/DualBootPatcher/builder/ && cd ${TRAVIS_BUILD_DIR}/DualBootPatcher/
+- "sudo docker run --rm -i -e USER_ID=$(id -u) -e GROUP_ID=$(id -g) -v \"$(pwd):/builder/DualBootPatcher:rw,z\"
+  -v \"${HOME}/.android:/builder/.android:rw,z\" silverx2222/dualbootpatcher:9.3.0-14-android
+  bash << EOF  \ncd ~/DualBootPatcher/builder && cmake .. -DMBP_BUILD_TARGET=android &&  make -j16 && rm -rf assets && cpack &&  make apk \n"
+before_deploy:
+- git config --local user.name silverx2222
+- git config --local user.email silverx2222@gmail.com
+- export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%H%M%S')-debug}
+- git tag $TRAVIS_TAG --force
+deploy:
+  provider: releases
+  api_key:
+    secure: GnrKAWfGKakBZ8AD4fGedFp3NqOYzkUdhD7PR35mEouXP8v/pm7h1IkDr/+Uk8lVlNkCYSab6fQ178BfTyeIY6edUke+wkbS/FpbEoqh6mF2sGum28LT9wR1D3o92jQkDE711NwBYalKbZHJ2vDyZq6VvH9OhPoZECDLK1YqsACeIzfKE8gtvDRxN5mg+iBb6dT0Da9AQNvzLMLL8qOVb5+joDs99OuuRGfuD3CtXnjvkpAO44p+W3eyZ7hKKVeChZw7i9Di/1Gtr9NY6L+KHvNil53KeARlhHFH17BpobOGS7Crl7EIlbSzTtCpkdcn0DxxDIHPgbsFsL/5kwWFoPiIitqZzP2MEMeb86sG4Mi1eYneR5pEbZLNXQHkPEAFK85lijaoLihSrvnId556QC0Mh1J+fxQcw/zOn07VdmD+wvgwYs4bCDrLJPPHNtFP7SNGqzkEUv7hZ+ld9kZBTTAxiZCn9texsudvamyPoerTQ7kkwNplwrywEzyCEUTOCSj7VxUepMzyoR6pAWbIKadXr7fGaJT0M6/UEVJNx8f+Nxh0Ww+zQQaeaD8K38+HCZGXzgZ6PI1kQjrzhfFI9/xVjnGSq5WFp3QPPd6diIJGkitnwR/Dy2mhLJim1s0pczlvrYGhZm3dxDa03QqyQ5RBAZDsa4nc2XEkrd0yo+w=
+  file: 
+     - "${TRAVIS_BUILD_DIR}/DualBootPatcher/Android_GUI/build/outputs/apk/debug/Android_GUI-debug.apk"
+     - "${TRAVIS_BUILD_DIR}/DualBootPatcher/builder/assets/data-9.3.0.tar.xz"
+  skip_cleanup: true
+  on:
+    all_branches: true
+    repo: silverx2222/DualBootPatcher
