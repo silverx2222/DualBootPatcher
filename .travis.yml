@@ -23,10 +23,8 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: W3KoBqGmyIFBu4N+OJ8ZYYXPaGCOiM4qWqcy4oD11AjidIYUZjqoPrnHBrSVLo6aCWMw9V0h5tQHCWAFOBV+upFtHjuwWVQx9AKzISUE+6SHHKdzvjXRlCaBGRe+ukcC1ZQhq7Pzuh+6ERbInYTpHaUexMckM1F1X98uNYPu4P+hWwUCzxpScIG86sVMHs0z30JuXq8LVNmYNW1zk1d2VHgQkOcU6eEKIBIp+5gaVbWF7LJou4NtEcn7fPvCPfw5buMn1GjN8v27wVYKsiRiuS/a5PIG1lmVqlGkDrmjcIoH5jSWIxbFT+qQrThI3ivGv+AIuD0kHOCS1IG+zxx0NiEV6uBWKZnzl44hDkoBaI0dyUth9RDMaxnSHNI4zSat1BCcEmRd5+46yDLTVgeowV/kTmEYrfdRZdI+CT8yXb3DcXbpNbHM+Wq0dSzCZEkalLqyrPaG1Xkgb0ympD1dZ1AeTTHmjBjquBCvY7iTCpRgPofPXBEAocVcx4pV1Y9Kh6EI2QTHpDLPcwrJ8EgAykxg+InsKH7JmEB61PEZotZ4+aJAdv515Er+lGf+pYl+6DsjDOVZSv072qOFAz2KSDmEXegMWhmYjIKhbqApif+38lDsCV/LsPFO8Nfe4U/dhOMq2W6MlWTSq+6XxZbJsMTxm+0f3x9yDgBO8+voLYM=  file: 
-  file:  
-    - "${TRAVIS_BUILD_DIR}/DualBootPatcher/Android_GUI/build/outputs/apk/debug/Android_GUI-debug.apk"
-    - "${TRAVIS_BUILD_DIR}/DualBootPatcher/builder/assets/data-9.3.0.tar.xz"
+    secure: W3KoBqGmyIFBu4N+OJ8ZYYXPaGCOiM4qWqcy4oD11AjidIYUZjqoPrnHBrSVLo6aCWMw9V0h5tQHCWAFOBV+upFtHjuwWVQx9AKzISUE+6SHHKdzvjXRlCaBGRe+ukcC1ZQhq7Pzuh+6ERbInYTpHaUexMckM1F1X98uNYPu4P+hWwUCzxpScIG86sVMHs0z30JuXq8LVNmYNW1zk1d2VHgQkOcU6eEKIBIp+5gaVbWF7LJou4NtEcn7fPvCPfw5buMn1GjN8v27wVYKsiRiuS/a5PIG1lmVqlGkDrmjcIoH5jSWIxbFT+qQrThI3ivGv+AIuD0kHOCS1IG+zxx0NiEV6uBWKZnzl44hDkoBaI0dyUth9RDMaxnSHNI4zSat1BCcEmRd5+46yDLTVgeowV/kTmEYrfdRZdI+CT8yXb3DcXbpNbHM+Wq0dSzCZEkalLqyrPaG1Xkgb0ympD1dZ1AeTTHmjBjquBCvY7iTCpRgPofPXBEAocVcx4pV1Y9Kh6EI2QTHpDLPcwrJ8EgAykxg+InsKH7JmEB61PEZotZ4+aJAdv515Er+lGf+pYl+6DsjDOVZSv072qOFAz2KSDmEXegMWhmYjIKhbqApif+38lDsCV/LsPFO8Nfe4U/dhOMq2W6MlWTSq+6XxZbJsMTxm+0f3x9yDgBO8+voLYM=
+  file: "${TRAVIS_BUILD_DIR}/DualBootPatcher/Android_GUI/build/outputs/apk/debug/Android_GUI-debug.apk"
   skip_cleanup: true
   on:
     all_branches: true
